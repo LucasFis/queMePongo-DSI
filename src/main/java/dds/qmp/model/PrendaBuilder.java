@@ -1,7 +1,8 @@
 package dds.qmp.model;
 
-import dds.qmp.exceptions.PrendaInvalidaException;
 import static java.util.Objects.requireNonNull;
+
+import dds.qmp.exceptions.PrendaInvalidaException;
 
 public class PrendaBuilder {
   public Prenda prenda;
@@ -11,29 +12,34 @@ public class PrendaBuilder {
   }
 
   public void asignarTipoPrenda(TipoPrenda tipoPrenda) {
-    this.prenda.tipoPrenda = requireNonNull(tipoPrenda, "Una prenda debe tener tipo de prenda");
-      }
+    this.prenda.setTipoPrenda(requireNonNull(tipoPrenda, "Una prenda debe tener tipo de prenda"));
+  }
 
   public void asignarMaterial(Material material) {
-    this.prenda.material = requireNonNull(material, "Una prenda debe tener material");
+    this.prenda.setMaterial(requireNonNull(material, "Una prenda debe tener material"));
   }
 
   public void asignarTrama(Trama trama) {
-    this.prenda.trama = trama == null ? Trama.LISA : trama;
+    this.prenda.setTrama(trama == null ? Trama.LISA : trama);
+  }
+
+  public void asignarFormalidad(Formalidad formalidad) {
+    this.prenda.setFormalidad(requireNonNull(formalidad, "Una prenda debe tener una formalidad"));
   }
 
   public void asignarColorPrimario(Color colorPrimario) {
-    this.prenda.colorPrimario = requireNonNull(
-        colorPrimario, "Una prenda debe tener color primario");
+    this.prenda.setColorPrimario(
+        requireNonNull(colorPrimario, "Una prenda debe tener color primario"));
   }
 
   public void asignarColorSecundario(Color colorSecundario) {
-    this.prenda.colorSecundario = colorSecundario;
+    this.prenda.setColorSecundario(colorSecundario);
   }
 
   public Prenda crearPrenda() {
-    if (this.prenda.tipoPrenda == null || this.prenda.material == null
-        || this.prenda.trama == null || this.prenda.colorPrimario == null) {
+    if (this.prenda.getTipoPrenda() == null || this.prenda.getMaterial() == null
+        || this.prenda.getTrama() == null || this.prenda.getColorPrimario() == null
+        || this.prenda.getFormalidad() == null) {
       throw new PrendaInvalidaException("Esta prenda no fue terminada");
     }
     return this.prenda;
